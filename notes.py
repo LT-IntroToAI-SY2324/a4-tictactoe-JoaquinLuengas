@@ -2,7 +2,7 @@
 
 # (define-struct dog [fur_color name age favorite_food])
 
-class Dog:
+class Dog:#10/23/23
     # Functions that start with two underscores are not intended to be called directly.
     def __init__(self, n = "", fc = "", a = "", ff = ""):
         """Creates an instance of the dog class and sets attribrutes"""

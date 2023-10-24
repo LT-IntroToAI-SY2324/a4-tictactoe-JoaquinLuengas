@@ -9,8 +9,38 @@ class TTTBoard:
         board - a list of '*'s, 'X's & 'O's. 'X's represent moves by player 'X', 'O's
             represent moves by player 'O' and '*'s are spots no one has yet played on
     """
+    def __init__(self):
+        self.board = ["*"] * 9
 
-    pass
+    def __str__(self) -> str:
+        s=""
+        for x in [0,3,6]:
+            s += self.board[x+0] + " " + self.board[x+1] + " " + self.board[x+2] + "\n"
+        return s
+    
+    def make_move(self, player, pos):
+        #Fail if invalid move
+        if pos < 0 or pos > 8 or self.board[pos] != '*':
+            return False
+        #Or else make the move
+        self.board[pos] = player
+        return True
+    #def has_won(self, player):
+    def game_over(self):
+        #Pass if board is full or player has won
+        for x in [0,3,6]:
+            if self.board[x+0] and self.board[x+1] and self.board[x+2]== "X" or "O":
+                print("Game Over")
+                return True
+            elif self.board != "*":
+                print("Game Over")
+                return True
+            #Return false if not
+            else:
+                return False
+    #def clear(self):
+
+    #pass
 
 
 def play_tic_tac_toe() -> None:
@@ -61,10 +91,14 @@ if __name__ == "__main__":
     # need to write some more tests to make sure that your TTTBoard class is behaving
     # properly.
     brd = TTTBoard()
+    print(brd.board)
+    print(brd)
     brd.make_move("X", 8)
     brd.make_move("O", 7)
+    print(brd)
 
     assert brd.game_over() == False
+    print(brd)
 
     brd.make_move("X", 5)
     brd.make_move("O", 6)
