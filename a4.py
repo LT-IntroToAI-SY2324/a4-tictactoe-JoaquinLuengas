@@ -25,20 +25,28 @@ class TTTBoard:
         #Or else make the move
         self.board[pos] = player
         return True
-    #def has_won(self, player):
+    
+    def has_won(self, player):
+        if self.board[2] and self.board[5] and self.board[8] == player:
+            return True
+        else:
+            return False
+        
+
     def game_over(self):
         #Pass if board is full or player has won
-        for x in [0,3,6]:
-            if self.board[x+0] and self.board[x+1] and self.board[x+2]== "X" or "O":
+        for x in [0,9]:
+            if self.board[x] != "*":
                 print("Game Over")
                 return True
-            elif self.board != "*":
-                print("Game Over")
-                return True
-            #Return false if not
+        #Return false if not
             else:
                 return False
-    #def clear(self):
+    def clear(self):
+        s=""
+        for x in [0,3,6]:
+            s += self.board[x+0] + " " + self.board[x+1] + " " + self.board[x+2] + "\n"
+        return s
 
     #pass
 
@@ -91,18 +99,26 @@ if __name__ == "__main__":
     # need to write some more tests to make sure that your TTTBoard class is behaving
     # properly.
     brd = TTTBoard()
-    print(brd.board)
-    print(brd)
+    #print(brd.board)
+    #print(brd)
     brd.make_move("X", 8)
     brd.make_move("O", 7)
-    print(brd)
+    #brd.make_move("X", 6)
+    #brd.make_move("O", 5)
+    #brd.make_move("X", 4)
+    #brd.make_move("O", 3)
+    #brd.make_move("X", 2)
+    #brd.make_move("O", 1)
+    #brd.make_move("X", 0)
+    #print(brd)
 
     assert brd.game_over() == False
-    print(brd)
+    #print(brd)
 
     brd.make_move("X", 5)
     brd.make_move("O", 6)
     brd.make_move("X", 2)
+    print(brd)
 
     assert brd.has_won("X") == True
     assert brd.has_won("O") == False
@@ -115,6 +131,7 @@ if __name__ == "__main__":
     brd.make_move("O", 3)
     brd.make_move("O", 4)
     brd.make_move("O", 5)
+    print(brd)
 
     assert brd.has_won("X") == False
     assert brd.has_won("O") == True
