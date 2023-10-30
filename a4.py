@@ -9,8 +9,61 @@ class TTTBoard:
         board - a list of '*'s, 'X's & 'O's. 'X's represent moves by player 'X', 'O's
             represent moves by player 'O' and '*'s are spots no one has yet played on
     """
+    def __init__(self):
+        self.board = ["*"] * 9
 
-    pass
+    def __str__(self) -> str:
+        s=""
+        for x in [0,3,6]:
+            s += self.board[x+0] + " " + self.board[x+1] + " " + self.board[x+2] + "\n"
+        return s
+    
+    def make_move(self, player, pos):
+        #Fail if invalid move
+        if pos < 0 or pos > 8 or self.board[pos] != '*':
+            return False
+        #Or else make the move
+        self.board[pos] = player
+        return True
+    
+    def has_won(self, player) -> bool:
+        """If player has won, print true"""
+        ps = [player] * 3
+        if self.board[0:3] == ps or self.board[3:6] == ps or self.board[6:9] == ps:
+            return True
+        elif self.board[::3] == ps or self.board[1::3] == ps or self.board[2::3] == ps:
+            return True
+        elif self.board[::4] == ps or self.board[2:7:2] == ps:
+            return True
+        else:
+            return False
+        #Code not in use
+        #if self.board[2] and self.board[5] and self.board[8] == player:
+        #    return True
+        #else:
+        #    return False
+        
+
+    def game_over(self) -> bool:
+        #Pass if board is full or player has won
+        if "*" not in self.board or self.has_won("X") or self.has_won("O"):
+            return True
+        return False
+        #for x in [0,9]:
+        #    if self.board[x] != "*":
+        #        print("Game Over")
+        #        return True
+        #Return false if not
+        #    else:
+        #        return False
+    def clear(self):
+        self.board = ["*"] * 9
+        #s=""
+        #for x in [0,3,6]:
+        #    s += self.board[x+0] + " " + self.board[x+1] + " " + self.board[x+2] + "\n"
+        #return s
+
+    #pass
 
 
 def play_tic_tac_toe() -> None:
@@ -61,26 +114,40 @@ if __name__ == "__main__":
     # need to write some more tests to make sure that your TTTBoard class is behaving
     # properly.
     brd = TTTBoard()
+    #print(brd.board)
+    #print(brd)
     brd.make_move("X", 8)
     brd.make_move("O", 7)
+    #brd.make_move("X", 6)
+    #brd.make_move("O", 5)
+    #brd.make_move("X", 4)
+    #brd.make_move("O", 3)
+    #brd.make_move("X", 2)
+    #brd.make_move("O", 1)
+    #brd.make_move("X", 0)
+    #print(brd)
 
     assert brd.game_over() == False
+    #print(brd)
 
     brd.make_move("X", 5)
     brd.make_move("O", 6)
     brd.make_move("X", 2)
+    print(brd)
 
     assert brd.has_won("X") == True
     assert brd.has_won("O") == False
     assert brd.game_over() == True
 
     brd.clear()
+    print(brd)
 
     assert brd.game_over() == False
 
     brd.make_move("O", 3)
     brd.make_move("O", 4)
     brd.make_move("O", 5)
+    print(brd)
 
     assert brd.has_won("X") == False
     assert brd.has_won("O") == True
@@ -89,4 +156,4 @@ if __name__ == "__main__":
     print("All tests passed!")
 
     # uncomment to play!
-    # play_tic_tac_toe()
+    play_tic_tac_toe()
